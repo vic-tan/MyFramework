@@ -1,5 +1,9 @@
 apply plugin: 'com.android.application'
 
+def releaseTime() {
+    return new Date().format("yyyy-MM-dd", TimeZone.getTimeZone("UTC"))
+}
+
 android {
     compileSdkVersion 26
     defaultConfig {
@@ -9,12 +13,58 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        manifestPlaceholders = [BASE_URL: "\"https://api.douban.com/\""]
     }
+
+    //签名
+    signingConfigs {
+        release {
+            keyAlias 'jiubao'
+            keyPassword 'qweqwe123'
+            storeFile file('./jiubaozhibo.jks')
+            storePassword 'qweqwe123'
+        }
+    }
+    android.applicationVariants.all { variant ->
+        variant.outputs.all {
+            // 输出apk名称为XXXX_v1.0_2016-01-15_wandoujia.apk
+            outputFileName=rootProject.getName()+"_v"+defaultConfig.versionName+"_"+releaseTime()+"_"+variant.productFlavors[0].name+".apk"
+        }
+    }
+
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+//        debug {
+//            minifyEnabled false
+//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+////            第三方登录及分享需要签名才可用
+////            signingConfig signingConfigs.release
+//        }
+    }
+    flavorDimensions('channel')
+    productFlavors {
+
+        // 线上环境
+        pro {
+            dimension "channel"
+            manifestPlaceholders = [CHANNELID: "baidu"]
+            buildConfigField "String", "BASE_URL", "\"https://api.douban.com/\""
+        }
+        // 开发阶段
+        dev {
+            dimension "channel"
+            manifestPlaceholders = [CHANNELID: "xiaomi"]
+            buildConfigField "String", "BASE_URL", "\"https://api.douban.com/\""
+        }
+
+    }
+
+    productFlavors.all {
+        flavor -> flavor.manifestPlaceholders = [CHANNELID: name]
     }
 }
 

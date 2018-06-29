@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 
 def releaseTime() {
-    return new Date().format("yyyy-MM-dd", TimeZone.getTimeZone("UTC"))
+    return new Date().format("yyyy_MM_dd_HH_mm")
 }
 
 android {
@@ -13,7 +13,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        manifestPlaceholders = [BASE_URL: "\"https://api.douban.com/\""]
+        buildConfigField "String", "BASE_URL", "\"https://api.douban.com/\""
     }
 
     //签名
@@ -27,11 +27,24 @@ android {
     }
     android.applicationVariants.all { variant ->
         variant.outputs.all {
-            // 输出apk名称为XXXX_v1.0_2016-01-15_wandoujia.apk
-            outputFileName=rootProject.getName()+"_v"+defaultConfig.versionName+"_"+releaseTime()+"_"+variant.productFlavors[0].name+".apk"
+//            output ->
+//            def outputFile = output.outputFile
+//            if (outputFile != null && outputFile.name.endsWith('.apk')) {
+//                // 输出apk名称为XXXX_wandoujia_v1.0_2016-01-15.apk
+//                def fileName = "MyFramework_${variant.productFlavors[0].name}_v${defaultConfig.versionName}_${releaseTime()}.apk"
+//                output.outputFile = new File(outputFile.parent, fileName)
+            outputFileName = rootProject.getName() + "_" + variant.productFlavors[0].name + "_v" + defaultConfig.versionName + "_" + releaseTime() + ".apk"
+//            }
         }
     }
 
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
+    dexOptions {
+        javaMaxHeapSize "4g"
+    }
 
     buildTypes {
         release {
@@ -47,17 +60,14 @@ android {
     }
     flavorDimensions('channel')
     productFlavors {
-
         // 线上环境
         pro {
             dimension "channel"
-            manifestPlaceholders = [CHANNELID: "baidu"]
             buildConfigField "String", "BASE_URL", "\"https://api.douban.com/\""
         }
         // 开发阶段
         dev {
             dimension "channel"
-            manifestPlaceholders = [CHANNELID: "xiaomi"]
             buildConfigField "String", "BASE_URL", "\"https://api.douban.com/\""
         }
 

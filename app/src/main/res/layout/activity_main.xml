@@ -1,27 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <ScrollView
+
+    <Button
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:onClick="rxJava_Retrofit"
+        android:text="RxJava2+Retrofit2+kprogresshud"
+        android:textAllCaps="false" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
 
-            <Button
-                android:onClick="rxJava_Retrofit"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="RxJava2+Retrofit2" />
-        </LinearLayout>
-
-    </ScrollView>
-
-</LinearLayout>
+</com.zhy.autolayout.AutoLinearLayout>

@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.vic.framework.R;
+import com.vic.framework.common.base.ui.activity.base.BaseActivity;
 import com.vic.framework.common.library.rxhttp.RxHttpUtils;
 import com.vic.framework.common.library.rxhttp.download.DownloadObserver;
 import com.vic.framework.common.library.rxhttp.interceptor.Transformer;
@@ -49,7 +50,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 
-public class HttpActivity extends AppCompatActivity implements View.OnClickListener {
+public class HttpActivity extends BaseActivity implements View.OnClickListener {
 
     private Button download_http;
     private KProgressHUD loading_dialog;
@@ -60,16 +61,20 @@ public class HttpActivity extends AppCompatActivity implements View.OnClickListe
     private int REQUEST_CODE_CHOOSE = 1;
     private String uploadUrl = "http://server.jeasonlzy.com/OkHttpUtils/upload";
 
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected int setContentViewId() {
+        return R.layout.test_activity_http;
+    }
+
+    @Override
+    public void initViews() {
         loading_dialog = KProgressHUD.create(this)
                 .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
                 .setLabel("  加载中...  ")
                 .setCancellable(true)
                 .setAnimationSpeed(2)
                 .setDimAmount(0.5f);
-        setContentView(R.layout.test_activity_http);
         responseTv = findViewById(R.id.response_tv);
         findViewById(R.id.single_http_default).setOnClickListener(this);
         findViewById(R.id.single_http).setOnClickListener(this);
@@ -81,7 +86,7 @@ public class HttpActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.upload_http).setOnClickListener(this);
         findViewById(R.id.upload_imgs).setOnClickListener(this);
         findViewById(R.id.global_string_http).setOnClickListener(this);
-
+        setMainTitle("返回");
     }
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)

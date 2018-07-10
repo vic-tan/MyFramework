@@ -2,6 +2,8 @@ package com.vic.framework;
 
 
 import android.app.Application;
+import android.content.Context;
+import android.support.multidex.MultiDex;
 
 import com.vic.framework.common.library.rxhttp.RxHttpUtils;
 import com.vic.framework.common.library.rxhttp.config.OkHttpConfig;
@@ -29,6 +31,10 @@ public class BaseApplication extends Application {
 //        initRxHttpUtils();
         initCustomRxHttpUtils();
 
+    }
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this); // Enable MultiDex.
     }
 
 

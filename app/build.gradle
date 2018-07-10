@@ -14,6 +14,7 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         buildConfigField "String", "BASE_URL", "\"https://api.douban.com/\""
+        multiDexEnabled true
     }
 
     //签名
@@ -101,6 +102,11 @@ dependencies {
     //屏幕适配框架
     implementation 'com.zhy:autolayout:1.4.5'
 
+    //分包
+    implementation 'com.android.support:multidex:1.0.1'
+    //注解
+    implementation 'com.jakewharton:butterknife:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
 
     //测试用的
     implementation 'com.zhihu.android:matisse:0.4.3'

@@ -13,6 +13,8 @@ import com.vic.framework.common.utils.CommTool;
 import com.vic.framework.common.utils.StatusBarManager;
 import com.zhy.autolayout.AutoLayoutActivity;
 
+import butterknife.ButterKnife;
+
 /**
  * Created by Administrator on 2018/6/29.
  */
@@ -48,6 +50,7 @@ public abstract class BaseActivity extends AutoLayoutActivity {
         setInflateMenu();
 
         baseContent.addView(LinearLayout.inflate(this, setContentViewId(), null));
+        ButterKnife.bind(this,baseContent);
         initViews();
         //左边Navigation Button监听回调
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {

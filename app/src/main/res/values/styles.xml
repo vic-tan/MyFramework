@@ -13,6 +13,7 @@
         <!--指定toolbar弹出菜单样式-->
         <item name="actionOverflowMenuStyle">@style/ToolbarMenuStyle</item>
         <item name="android:dropDownListViewStyle">@style/ToolbarMenuDropDownListViewStyle</item>
+        <item name="styleLoadingLayout">@style/LoadingLayoutStyle</item>
     </style>
 
 
@@ -48,4 +49,9 @@
         <item name="android:dividerHeight">1dp</item>
     </style>
 
+    <style name="LoadingLayoutStyle" parent="LoadingLayout.Style">
+        <item name="llEmptyImage">@mipmap/ic_empty</item>
+        <item name="llErrorImage">@drawable/ic_error</item>
+        <item name="llLoadingResId">@layout/common_loading</item>
+    </style>
 </resources>
